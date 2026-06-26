@@ -1,5 +1,6 @@
 'use client';
 import { useRef, useEffect, useCallback, useState } from 'react';
+import { motion } from 'framer-motion';
 import styles from './Features.module.css';
 import {
   IconArrowPath, IconArrowTrendingUp, IconChartPie,
@@ -252,29 +253,55 @@ export default function Features() {
     >
       <div className="container">
         {/* Header */}
-        <header className={`${styles.sectionHeader} reveal`}>
-          <div className="badge">Core Features</div>
-          <h2 id="features-heading" className={styles.heading}>
+        <motion.header 
+          className={`${styles.sectionHeader} reveal`}
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.6, delay: 0.1 }}
+        >
+          <motion.div 
+            className="badge"
+            initial={{ opacity: 0, scale: 0.8 }}
+            animate={{ opacity: 1, scale: 1 }}
+            transition={{ duration: 0.5, delay: 0.15 }}
+          >
+            Core Features
+          </motion.div>
+          <motion.h2 
+            id="features-heading" 
+            className={styles.heading}
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6, delay: 0.2 }}
+          >
             Everything you need to{' '}
             <span className="gradient-text">automate at scale</span>
-          </h2>
-          <p className={styles.subheading}>
+          </motion.h2>
+          <motion.p 
+            className={styles.subheading}
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6, delay: 0.25 }}
+          >
             NexusAI brings together powerful AI agents, seamless integrations,
             and real-time analytics in one unified platform.
-          </p>
-        </header>
+          </motion.p>
+        </motion.header>
 
         {/* ── BENTO GRID (Desktop) ── */}
-        <div
+        <motion.div
           ref={bentoRef}
           className={`${styles.bentoGrid} reveal`}
           aria-label="Features bento grid"
           onMouseLeave={onBentoLeave}
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ duration: 0.8, delay: 0.2 }}
         >
           {FEATURES.map((feature, index) => {
             const Icon = feature.icon;
             return (
-              <div
+              <motion.div
                 key={feature.id}
                 ref={(el) => { bentoCardRefs.current[index] = el; }}
                 className={`${styles.bentoCard} ${styles[`bentoCard--${feature.size}`]}`}
@@ -286,6 +313,9 @@ export default function Features() {
                 role="article"
                 aria-label={feature.title}
                 id={`bento-${feature.id}`}
+                initial={{ opacity: 0, y: 30 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.5, delay: 0.3 + index * 0.08, ease: 'easeOut' }}
               >
                 {/* Background glow */}
                 <div className={styles.bentoGlow} aria-hidden="true" />
@@ -309,26 +339,32 @@ export default function Features() {
 
                 {/* Border shimmer */}
                 <div className={styles.bentoBorder} aria-hidden="true" />
-              </div>
+              </motion.div>
             );
           })}
-        </div>
+        </motion.div>
 
         {/* ── ACCORDION (Mobile) ── */}
-        <div
+        <motion.div
           className={`${styles.accordion} reveal`}
           aria-label="Features accordion"
           role="list"
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ duration: 0.8, delay: 0.2 }}
         >
           {FEATURES.map((feature, index) => {
             const Icon = feature.icon;
             return (
-              <div
+              <motion.div
                 key={feature.id}
                 className={styles.accordionItem}
                 style={{ '--feature-color': feature.color } as React.CSSProperties}
                 role="listitem"
                 id={`accordion-${feature.id}`}
+                initial={{ opacity: 0, x: -20 }}
+                animate={{ opacity: 1, x: 0 }}
+                transition={{ duration: 0.4, delay: 0.3 + index * 0.06 }}
               >
                 <button
                   ref={(el) => { accordionBtnRefs.current[index] = el; }}
@@ -363,10 +399,10 @@ export default function Features() {
                     </div>
                   </div>
                 </div>
-              </div>
+              </motion.div>
             );
           })}
-        </div>
+        </motion.div>
       </div>
     </section>
   );

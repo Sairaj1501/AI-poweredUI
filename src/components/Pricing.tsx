@@ -1,5 +1,6 @@
 'use client';
 import { useRef, useCallback } from 'react';
+import { motion } from 'framer-motion';
 import styles from './Pricing.module.css';
 import { IconCheck, IconMinus, IconChevronRight } from './Icons';
 
@@ -288,30 +289,69 @@ export default function Pricing() {
     >
       <div className="container">
         {/* Header */}
-        <header className={`${styles.sectionHeader} reveal`}>
-          <div className="badge">Pricing</div>
-          <h2 id="pricing-heading" className={styles.heading}>
+        <motion.header 
+          className={`${styles.sectionHeader} reveal`}
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.6, delay: 0.1 }}
+        >
+          <motion.div 
+            className="badge"
+            initial={{ opacity: 0, scale: 0.8 }}
+            animate={{ opacity: 1, scale: 1 }}
+            transition={{ duration: 0.5, delay: 0.15 }}
+          >
+            Pricing
+          </motion.div>
+          <motion.h2 
+            id="pricing-heading" 
+            className={styles.heading}
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6, delay: 0.2 }}
+          >
             Simple, transparent pricing
-          </h2>
-          <p className={styles.subheading}>
+          </motion.h2>
+          <motion.p 
+            className={styles.subheading}
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6, delay: 0.25 }}
+          >
             Choose the plan that fits your scale. Upgrade, downgrade, or cancel anytime.
-          </p>
-        </header>
+          </motion.p>
+        </motion.header>
 
         {/* Controls */}
-        <div className={`${styles.controls} reveal`}>
+        <motion.div 
+          className={`${styles.controls} reveal`}
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.6, delay: 0.15 }}
+        >
           <BillingToggle onToggle={setBilling} />
           <CurrencySelector onSelect={setCurrency} />
-        </div>
+        </motion.div>
 
         {/* Pricing Grid */}
-        <div className={styles.grid} role="list" aria-label="Pricing plans">
-          {PLANS.map((plan) => (
-            <article
+        <motion.div 
+          className={styles.grid} 
+          role="list" 
+          aria-label="Pricing plans"
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ duration: 0.8, delay: 0.15 }}
+        >
+          {PLANS.map((plan, i) => (
+            <motion.article
               key={plan.id}
               className={`${styles.card} ${plan.highlight ? styles.highlighted : ''} reveal`}
               role="listitem"
               aria-label={`${plan.name} plan`}
+              initial={{ opacity: 0, y: 40 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6, delay: 0.2 + i * 0.1, ease: 'easeOut' }}
+              whileHover={{ y: -12 }}
             >
               {plan.highlight && 'badge' in plan && (
                 <div className={styles.popularBadge} aria-label="Most popular plan">
@@ -354,15 +394,22 @@ export default function Pricing() {
                 </span>
               </div>
 
-              <a
+              <motion.a
                 href="#"
                 className={`btn ${plan.highlight ? 'btn-primary' : 'btn-ghost'} ${styles.planCta}`}
                 id={`cta-${plan.id}`}
                 aria-label={`${plan.cta} — ${plan.name} plan`}
+                whileHover={{ scale: 1.02 }}
+                whileTap={{ scale: 0.98 }}
               >
                 {plan.cta}
-                <IconChevronRight className={styles.ctaIcon} />
-              </a>
+                <motion.span
+                  animate={{ x: [0, 4, 0] }}
+                  transition={{ duration: 2, repeat: Infinity }}
+                >
+                  <IconChevronRight className={styles.ctaIcon} />
+                </motion.span>
+              </motion.a>
 
               {/* Feature List */}
               <ul className={styles.features} role="list" aria-label={`${plan.name} features`}>
@@ -381,9 +428,9 @@ export default function Pricing() {
                   </li>
                 ))}
               </ul>
-            </article>
+            </motion.article>
           ))}
-        </div>
+        </motion.div>
 
         {/* Enterprise Footer */}
         <footer className={`${styles.footer} reveal`}>
