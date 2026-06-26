@@ -1,0 +1,323 @@
+.featuresSection {
+  position: relative;
+  background: linear-gradient(180deg, var(--color-bg-deep) 0%, rgba(17,76,90,0.08) 50%, var(--color-bg-deep) 100%);
+}
+
+.sectionHeader {
+  text-align: center;
+  margin-bottom: 64px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 16px;
+}
+
+.heading {
+  font-size: clamp(30px, 4.5vw, 50px);
+  color: var(--arctic-powder);
+  max-width: 700px;
+}
+
+.subheading {
+  font-size: 17px;
+  color: var(--color-text-secondary);
+  max-width: 540px;
+  line-height: 1.7;
+  font-family: var(--font-body);
+}
+
+/* ═══════════════════════════════════════════
+   BENTO GRID — Desktop (>768px)
+═══════════════════════════════════════════ */
+.bentoGrid {
+  display: grid;
+  grid-template-columns: repeat(12, 1fr);
+  gap: 16px;
+}
+
+.bentoCard {
+  position: relative;
+  background: var(--color-bg-card);
+  border: 1px solid var(--color-border-subtle);
+  border-radius: var(--radius-xl);
+  padding: 32px;
+  overflow: hidden;
+  cursor: default;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  transition:
+    border-color 200ms var(--ease-out),
+    box-shadow 200ms var(--ease-out),
+    transform 200ms var(--ease-out),
+    background 200ms var(--ease-out);
+}
+
+/* Bento size slots */
+.bentoCard--large  { grid-column: span 5; grid-row: span 2; }
+.bentoCard--medium { grid-column: span 4; }
+.bentoCard--small  { grid-column: span 3; }
+
+/* Active state — JS-controlled class, no React re-render */
+.bentoActive {
+  border-color: rgba(255,200,1,0.4);
+  box-shadow:
+    0 0 0 1px rgba(255,200,1,0.15),
+    0 8px 48px rgba(0,0,0,0.5),
+    0 0 80px rgba(255,200,1,0.08);
+  transform: translateY(-3px);
+  background: linear-gradient(
+    145deg,
+    var(--color-bg-card-hover) 0%,
+    rgba(17,76,90,0.3) 100%
+  );
+}
+
+/* Glow orb inside card */
+.bentoGlow {
+  position: absolute;
+  top: -50px; right: -50px;
+  width: 180px; height: 180px;
+  background: radial-gradient(circle, var(--feature-color, #FFC801) 0%, transparent 70%);
+  opacity: 0;
+  transition: opacity 200ms var(--ease-out);
+  pointer-events: none;
+  border-radius: 50%;
+  filter: blur(30px);
+}
+
+.bentoActive .bentoGlow { opacity: 0.12; }
+
+/* Icon wrapper */
+.bentoIconWrap {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 46px; height: 46px;
+  border-radius: var(--radius-md);
+  background: rgba(255,200,1,0.08);
+  border: 1px solid rgba(255,200,1,0.15);
+  color: var(--feature-color, var(--forsythia));
+  flex-shrink: 0;
+  transition:
+    background 200ms var(--ease-out),
+    border-color 200ms var(--ease-out),
+    transform 200ms var(--ease-out);
+}
+
+.bentoActive .bentoIconWrap {
+  background: var(--feature-color, var(--forsythia));
+  color: var(--oceanic-noir);
+  transform: scale(1.08) rotate(-3deg);
+  border-color: transparent;
+}
+
+.bentoIcon { width: 22px; height: 22px; }
+
+/* Content */
+.bentoContent { flex: 1; }
+
+.bentoTitle {
+  font-family: var(--font-heading);
+  font-size: 17px;
+  font-weight: 700;
+  color: var(--arctic-powder);
+  margin-bottom: 8px;
+  letter-spacing: -0.01em;
+}
+
+.bentoDesc {
+  font-family: var(--font-body);
+  font-size: 14px;
+  color: var(--color-text-secondary);
+  line-height: 1.65;
+}
+
+/* Stat */
+.bentoStat {
+  display: flex;
+  align-items: baseline;
+  gap: 6px;
+  margin-top: auto;
+  padding-top: 16px;
+  border-top: 1px solid rgba(255,255,255,0.05);
+}
+
+.bentoStatValue {
+  font-family: var(--font-heading);
+  font-size: 30px;
+  font-weight: 800;
+  color: var(--feature-color, var(--forsythia));
+  letter-spacing: -0.04em;
+  line-height: 1;
+  transition: color 200ms var(--ease-out);
+}
+
+.bentoStatLabel {
+  font-size: 12px;
+  color: var(--color-text-muted);
+  font-weight: 500;
+}
+
+/* Animated corner accent */
+.bentoBorder {
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 200ms var(--ease-out);
+  background: conic-gradient(
+    from 180deg at 100% 0%,
+    var(--feature-color, #FFC801) 0deg,
+    transparent 60deg,
+    transparent 300deg,
+    var(--feature-color, #FFC801) 360deg
+  );
+  -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+  -webkit-mask-composite: destination-out;
+  mask-composite: exclude;
+  padding: 1px;
+}
+
+.bentoActive .bentoBorder { opacity: 0.35; }
+
+/* ═══════════════════════════════════════════
+   ACCORDION — Mobile (≤768px)
+═══════════════════════════════════════════ */
+.accordion {
+  display: none;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.accordionItem {
+  background: var(--color-bg-card);
+  border: 1px solid var(--color-border-subtle);
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+  transition: border-color 200ms var(--ease-out), box-shadow 200ms var(--ease-out);
+}
+
+/* "has" pseudo-class for open state */
+.accordionItem:has(.accordionTriggerOpen) {
+  border-color: rgba(255,200,1,0.25);
+  box-shadow: 0 4px 24px rgba(0,0,0,0.3);
+}
+
+.accordionTrigger {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  padding: 18px 20px;
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-family: var(--font-body);
+  text-align: left;
+  -webkit-tap-highlight-color: transparent;
+  touch-action: manipulation;
+  user-select: none;
+}
+
+.accordionIconWrap {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px; height: 40px;
+  border-radius: var(--radius-sm);
+  background: rgba(255,200,1,0.07);
+  border: 1px solid rgba(255,200,1,0.12);
+  color: var(--feature-color, var(--forsythia));
+  flex-shrink: 0;
+  transition:
+    background 200ms var(--ease-out),
+    border-color 200ms var(--ease-out),
+    color 200ms var(--ease-out);
+}
+
+.accordionTriggerOpen .accordionIconWrap {
+  background: var(--feature-color, var(--forsythia));
+  color: var(--oceanic-noir);
+  border-color: transparent;
+}
+
+.accordionIcon { width: 18px; height: 18px; }
+
+.accordionTitle {
+  flex: 1;
+  font-family: var(--font-heading);
+  font-size: 14px;
+  font-weight: 600;
+  letter-spacing: -0.01em;
+  color: var(--color-text-secondary);
+  transition: color 200ms var(--ease-out);
+}
+
+.accordionTriggerOpen .accordionTitle { color: var(--arctic-powder); }
+
+.accordionChevron {
+  width: 18px; height: 18px;
+  color: var(--color-text-muted);
+  flex-shrink: 0;
+  transition: transform 350ms var(--ease-in-out), color 200ms var(--ease-out);
+}
+
+.accordionTriggerOpen .accordionChevron {
+  color: var(--forsythia);
+}
+
+.accordionBody {
+  padding: 0 20px 20px 74px;
+}
+
+.accordionDesc {
+  font-family: var(--font-body);
+  font-size: 14px;
+  color: var(--color-text-secondary);
+  line-height: 1.7;
+  margin-bottom: 14px;
+}
+
+.accordionStat {
+  display: inline-flex;
+  align-items: baseline;
+  gap: 8px;
+  background: rgba(255,200,1,0.07);
+  border: 1px solid rgba(255,200,1,0.12);
+  border-radius: var(--radius-md);
+  padding: 8px 16px;
+}
+
+.accordionStatValue {
+  font-family: var(--font-heading);
+  font-size: 24px;
+  font-weight: 800;
+  color: var(--feature-color, var(--forsythia));
+  letter-spacing: -0.03em;
+}
+
+.accordionStatLabel {
+  font-size: 12px;
+  color: var(--color-text-muted);
+  font-weight: 500;
+}
+
+/* ── Breakpoints ── */
+@media (max-width: 1100px) {
+  .bentoCard--large  { grid-column: span 6; }
+  .bentoCard--medium { grid-column: span 6; }
+  .bentoCard--small  { grid-column: span 4; }
+}
+
+@media (max-width: 900px) {
+  .bentoCard--large  { grid-column: span 12; grid-row: span 1; }
+  .bentoCard--medium { grid-column: span 6; }
+  .bentoCard--small  { grid-column: span 6; }
+}
+
+@media (max-width: 768px) {
+  .bentoGrid { display: none; }
+  .accordion { display: flex; }
+}
