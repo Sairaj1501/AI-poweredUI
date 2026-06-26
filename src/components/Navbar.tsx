@@ -161,7 +161,7 @@ export default function Navbar() {
               <IconXMark className={styles.closeIcon} />
             </button>
           </div>
-          <p className={styles.searchHint}>Try: "integrations", "pricing", "API"</p>
+          <p className={styles.searchHint}>{`Try: "integrations", "pricing", "API"`}</p>
         </div>
       )}
     </>

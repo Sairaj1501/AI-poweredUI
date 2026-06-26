@@ -95,7 +95,7 @@ export default function Footer() {
               © {new Date().getFullYear()} NexusAI, Inc. All rights reserved.
             </p>
             <p className={styles.madeWith}>
-              // BUILT WITH PRECISION FOR THE NEXT GENERATION
+              {`// BUILT WITH PRECISION FOR THE NEXT GENERATION`}
             </p>
           </div>
         </div>
