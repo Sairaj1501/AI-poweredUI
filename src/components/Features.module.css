@@ -37,20 +37,24 @@
 
 .bentoCard {
   position: relative;
-  background: var(--color-bg-card);
+  background: linear-gradient(135deg, rgba(26,48,64,0.6) 0%, rgba(17,76,90,0.3) 100%);
   border: 1px solid var(--color-border-subtle);
   border-radius: var(--radius-xl);
   padding: 32px;
   overflow: hidden;
-  cursor: default;
+  cursor: pointer;
   display: flex;
   flex-direction: column;
   gap: 14px;
   transition:
-    border-color 200ms var(--ease-out),
-    box-shadow 200ms var(--ease-out),
-    transform 200ms var(--ease-out),
-    background 200ms var(--ease-out);
+    border-color 250ms var(--ease-out),
+    box-shadow 250ms var(--ease-out),
+    transform 250ms var(--ease-out),
+    background 250ms var(--ease-out),
+    backdrop-filter 250ms var(--ease-out);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  will-change: transform, box-shadow;
 }
 
 /* Bento size slots */
@@ -60,33 +64,38 @@
 
 /* Active state — JS-controlled class, no React re-render */
 .bentoActive {
-  border-color: rgba(255,200,1,0.4);
+  border-color: rgba(255,200,1,0.5);
   box-shadow:
-    0 0 0 1px rgba(255,200,1,0.15),
-    0 8px 48px rgba(0,0,0,0.5),
-    0 0 80px rgba(255,200,1,0.08);
-  transform: translateY(-3px);
+    0 0 0 1px rgba(255,200,1,0.25),
+    0 12px 60px rgba(255,200,1,0.15),
+    0 0 100px rgba(255,200,1,0.12),
+    inset 0 1px 0 rgba(255,255,255,0.08);
+  transform: translateY(-8px) scale(1.02);
   background: linear-gradient(
-    145deg,
-    var(--color-bg-card-hover) 0%,
-    rgba(17,76,90,0.3) 100%
+    135deg,
+    rgba(30,53,74,0.8) 0%,
+    rgba(17,76,90,0.5) 100%
   );
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
 }
 
 /* Glow orb inside card */
 .bentoGlow {
   position: absolute;
-  top: -50px; right: -50px;
-  width: 180px; height: 180px;
-  background: radial-gradient(circle, var(--feature-color, #FFC801) 0%, transparent 70%);
+  top: -80px; right: -80px;
+  width: 240px; height: 240px;
+  background: radial-gradient(circle, var(--feature-color, #FFC801) 0%, transparent 65%);
   opacity: 0;
-  transition: opacity 200ms var(--ease-out);
+  transition: opacity 300ms var(--ease-out);
   pointer-events: none;
   border-radius: 50%;
-  filter: blur(30px);
+  filter: blur(40px) brightness(1.2);
+  mix-blend-mode: screen;
+  will-change: opacity;
 }
 
-.bentoActive .bentoGlow { opacity: 0.12; }
+.bentoActive .bentoGlow { opacity: 0.18; }
 
 /* Icon wrapper */
 .bentoIconWrap {
